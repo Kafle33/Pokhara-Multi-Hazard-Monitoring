@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokhara Multi-Hazard Monitoring System</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="title">🗻 Pokhara Multi-Hazard Monitoring</h1>
+            <p class="subtitle">Real-time Landslide, Flood & Exposure Analysis</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Panel -->
+        <div class="sidebar">
+            <div class="panel">
+                <h2 class="panel-title">📍 Hazard Layers</h2>
+                
+                <!-- Layer Controls -->
+                <div class="layer-controls">
+                    <div class="layer-group">
+                        <h3 class="layer-group-title">Landslide Susceptibility</h3>
+                        <label class="layer-checkbox">
+                            <input type="checkbox" id="layer-landslide" data-layer="landslide_susceptibility_zones">
+                            <span>Susceptibility Zones</span>
+                        </label>
+                    </div>
+
+                    <div class="layer-group">
+                        <h3 class="layer-group-title">Flood Mapping</h3>
+                        <label class="layer-checkbox">
+                            <input type="checkbox" id="layer-flood" data-layer="flood_extent">
+                            <span>Flood Extent</span>
+                        </label>
+                    </div>
+
+                    <div class="layer-group">
+                        <h3 class="layer-group-title">Exposure Analysis</h3>
+                        <label class="layer-checkbox">
+                            <input type="checkbox" id="layer-exposure" data-layer="exposure_zones">
+                            <span>Exposure Zones</span>
+                        </label>
+                    </div>
+
+                    <div class="layer-group">
+                        <h3 class="layer-group-title">Multi-Hazard Risk</h3>
+                        <label class="layer-checkbox">
+                            <input type="checkbox" id="layer-multi" data-layer="multi_hazard_risk">
+                            <span>Composite Risk Map</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Basemap Selector -->
+                <div class="basemap-selector">
+                    <h3 class="layer-group-title">🗺️ Basemap</h3>
+                    <select id="basemap-select" class="basemap-dropdown">
+                        <option value="openstreetmap">OpenStreetMap</option>
+                        <option value="satellite">Satellite</option>
+                        <option value="terrain">Terrain</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+
+                <!-- Legend -->
+                <div class="legend">
+                    <h3 class="legend-title">📊 Legend</h3>
+                    <div id="legend-content" class="legend-content">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #2ECC71;"></span>
+                            <span class="legend-label">Very Low</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #F1C40F;"></span>
+                            <span class="legend-label">Low</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #E67E22;"></span>
+                            <span class="legend-label">Moderate</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #E74C3C;"></span>
+                            <span class="legend-label">High</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #8E44AD;"></span>
+                            <span class="legend-label">Very High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3 class="info-title">ℹ️ Information</h3>
+                    <div id="info-content" class="info-content">
+                        <p>Click on map features to view detailed information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div id="map" class="map-container"></div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading layer data...</p>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
