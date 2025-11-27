@@ -24,12 +24,12 @@ wheels/
 *.egg
 
 # Data files
-data/raw/*
-data/processed/*
-data/outputs/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/outputs/.gitkeep
+# data/raw/*
+# data/processed/*
+# data/outputs/*
+# !data/raw/.gitkeep
+# !data/processed/.gitkeep
+# !data/outputs/.gitkeep
 
 # Models
 backend/models/*.pkl
