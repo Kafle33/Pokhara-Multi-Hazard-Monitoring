@@ -103,7 +103,20 @@ async function loadLayer(layerName) {
     showLoading();
 
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/api/layers/${layerName}`);
+        let url;
+
+        // Check if running on GitHub Pages or local static file
+        const isStatic = window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+
+        if (isStatic) {
+            // Fetch directly from data/outputs directory (relative to frontend/)
+            url = `../data/outputs/${layerName}.geojson`;
+        } else {
+            // Use Backend API
+            url = `${CONFIG.API_BASE_URL}/api/layers/${layerName}`;
+        }
+
+        const response = await fetch(url);
 
         if (!response.ok) {
             throw new Error(`Failed to load layer: ${response.statusText}`);
@@ -276,6 +289,20 @@ function hideLoading() {
  */
 async function fetchAvailableLayers() {
     try {
+        // Check if running on GitHub Pages or local static file
+        const isStatic = window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+
+        if (isStatic) {
+            console.log('Running in static mode (GitHub Pages)');
+            // Return hardcoded list of layers known to exist in data/outputs
+            return [
+                'landslide_susceptibility_zones',
+                'flood_extent',
+                'exposure_zones',
+                'multi_hazard_risk'
+            ];
+        }
+
         const response = await fetch(`${CONFIG.API_BASE_URL}/api/layers/list`);
         const data = await response.json();
 
@@ -285,7 +312,13 @@ async function fetchAvailableLayers() {
         return data.layers;
     } catch (error) {
         console.error('Error fetching layers:', error);
-        return [];
+        // Fallback for static mode if API fails
+        return [
+            'landslide_susceptibility_zones',
+            'flood_extent',
+            'exposure_zones',
+            'multi_hazard_risk'
+        ];
     }
 }
 
